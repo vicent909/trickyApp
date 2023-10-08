@@ -1,6 +1,6 @@
 import React from "react";
 import {createStackNavigator} from '@react-navigation/stack';
-import { Akun, Beranda, GetStarted, History, Keranjang, Login, Register, Splash } from "../pages";
+import { Akun, Beranda, GetStarted, History, Keranjang, Login, PraKeranjang, ProdukDetail, Register, Splash, Testing, TransactionSuccess } from "../pages";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomNavigator } from "../components";
 
@@ -22,12 +22,16 @@ const MainApp = () => {
 
 const Router = () =>  {
     return(
-        <Stack.Navigator initialRouteName="MaonApp">
+        <Stack.Navigator initialRouteName="Splash">
             <Stack.Screen name="Splash" component={Splash} options={{headerShown: false}} />
             <Stack.Screen name="GetStarted" component={GetStarted} options={{headerShown: false}}/>
             <Stack.Screen name="Register" component={Register} options={{headerShown: false}}/>
             <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
             <Stack.Screen name="MainApp" component={MainApp} options={{headerShown: false}}/>
+            <Stack.Screen name="ProdukDetail" component={ProdukDetail} options={{headerShown: false}}/>
+            <Stack.Screen name="TransactionSuccess" component={TransactionSuccess} options={{headerShown: false}}/>
+            <Stack.Screen name="Testing" component={Testing} options={{headerShown: false}}/>
+            <Stack.Screen name="PraKeranjang" component={PraKeranjang} options={{headerShown: false}}/>
         </Stack.Navigator>
     )
 }

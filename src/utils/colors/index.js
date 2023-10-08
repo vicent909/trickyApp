@@ -6,7 +6,9 @@ const mainColor = {
     grey1 : '#B3B3B3',
     grey2 : '#E9E9E9',
     grey3: '#495A75',
-    grey4: '#F5F5F5'
+    grey4: '#F5F5F5',
+    grey5: '#E3E3E3',
+    grey6: '#9CA8B9'
     
 }
 
@@ -29,8 +31,17 @@ export const colors = {
         secondary: {
             background: 'white',
             text: mainColor.dark1
-        }
+        },
+        inactive:{
+            background: mainColor.grey5,
+            text: mainColor.dark1
+        },
+        sizeColor:{
+            background: mainColor.chocolate2,
+            text: mainColor.dark1
+        },
     },
     border : mainColor.grey2,
     background: mainColor.grey4,
+    smallTitle: mainColor.grey6
  }

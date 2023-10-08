@@ -1,37 +1,62 @@
-import { StyleSheet, Text, View, ScrollView, FlatList, SafeAreaView } from 'react-native'
-import React, {useState} from 'react'
+import { StyleSheet, Text, View, ScrollView, FlatList, SafeAreaView, Image } from 'react-native'
+import React, {useContext, useEffect, useState} from 'react'
 import { Hr, Poster, ProdukItem } from '../../components'
 import { colors } from '../../utils'
+import { AuthContext } from '../../context'
 
 
-const Beranda = () => {
-  const [data, setData] = useState([
-    {name: 'Vincent', id: 1},
-    {name: 'Vicki', id: 2},
-    {name: 'Angelita', id: 3},
-    {name: 'Angelita', id: 3},
-    {name: 'Angelita', id: 3},
-  ]);
+const Beranda = ({navigation}) => {
+  
+  const {userToken, userInfo} = useContext(AuthContext);
+  const [data, setData] = useState([]);
 
+  const getData = async() => {
+    try{
+      let response = await fetch('https://www.tricky.masuk.id/api/products', {
+        method: 'GET',
+        headers:{
+          'Accept': 'application/json',
+          'Authorization': "Bearer "+userToken
+        }
+      });
+      let json = await response.json();
+
+      setData(json.data);
+      
+    }catch(error){
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    getData()
+  }, [])
+
+  
   return (
     <View style={styles.outer}>
       <View style={styles.container}>
         <ScrollView  showsVerticalScrollIndicator={false}>
           <View >
             <View style={styles.topContainer}>
-              <Text style={styles.hello}>Hallo, User</Text>
+              <Text style={styles.hello}>Hallo, {userInfo.name}</Text>
               <Poster/>
               <Text style={styles.hello}>Produk Kami</Text>
               <Hr bot={18}/>
             </View>
             <SafeAreaView style={styles.botContainer}>
               <FlatList 
+                data={data}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
-                  <ProdukItem style={styles.flatitem}/>
-                )} 
-                data={data}
+                  <ProdukItem 
+                    style={styles.flatitem}  
+                    title={item.title}
+                    dataImage={'https://www.tricky.masuk.id/storage/'+item.galleries[0].image}
+                    price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                    onPress={() => navigation.navigate('ProdukDetail', item)}/>
+                    
+                )}
                 scrollEnabled={false}
               />
             </SafeAreaView>
@@ -69,7 +94,7 @@ const styles = StyleSheet.create({
   hello:{
     fontFamily: 'OverpassMono-SemiBold',
     color: colors.text.default,
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 14
   },
   flatitem:{

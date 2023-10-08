@@ -8,6 +8,11 @@ import Poster from "./Poster";
 import ProdukItem from "./ProdukItem";
 import CartItem from "./CartItem";
 import CartPayment from "./CartPayment";
+import HistoryItem from "./HistoryItem";
+import ButtonSmall from "./ButtonSmall";
+import AccountItem from "./AccountItem";
+import RadioButton from "./RadioButton";
+import DetailProdukItem from "./DetailProdukItem";
 
 export {
     Button,
@@ -20,5 +25,10 @@ export {
     ProdukItem,
     CartItem,
     CartPayment,
+    HistoryItem,
+    ButtonSmall,
+    AccountItem,
+    RadioButton,
+    DetailProdukItem,
     
 }

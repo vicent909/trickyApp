@@ -4,7 +4,8 @@ import Hr from '../Hr'
 import Button from '../Button'
 import { colors } from '../../../utils'
 
-const CartPayment = () => {
+const CartPayment = ({itemPrice, shipping, grandTotal}) => {
+  $total = itemPrice+shipping; 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Payment</Text>
@@ -15,14 +16,14 @@ const CartPayment = () => {
             <Text style={styles.price}>Ongkos Kirim</Text>
         </View>
         <View>
-            <Text style={styles.price}>Rp. 120.000</Text>
-            <Text style={styles.price}>Rp. 20.000</Text>
+            <Text style={styles.price}>Rp. {itemPrice}</Text>
+            <Text style={styles.price}>Rp. {shipping}</Text>
         </View>
       </View>
-      <Hr top={4} bot={4}/>
+      <Hr top={8} bot={8}/>
       <View style={styles.finishPriceContainer}>
         <Text style={styles.finalPrice}>Total Dibayarkan</Text>
-        <Text style={styles.finalPrice}>Rp. 140.000</Text>
+        <Text style={styles.finalPrice}>Rp. {$total}</Text>
       </View>
       <Button title="Checkout"/>
     </View>
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     finishPriceContainer:{
         flexDirection: 'row',
         justifyContent: 'space-between',
-
+        marginBottom: 8
     },  
     finalPrice:{
         fontFamily: 'Nunito-SemiBold',

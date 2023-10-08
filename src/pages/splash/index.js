@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, {useEffect} from 'react'
+import React, {useContext, useEffect} from 'react'
 import { ILLogo } from '../../assets'
 import { colors } from '../../utils'
+import { AuthContext } from '../../context'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({navigation}) => {
     useEffect(() => {
       setTimeout(() => {
-        navigation.replace('GetStarted')
+        navigation.replace('Testing');
       }, 3000)
     }, [navigation])
     

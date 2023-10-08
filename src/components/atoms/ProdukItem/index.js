@@ -3,12 +3,14 @@ import React from 'react'
 import { colors } from '../../../utils'
 import { ILMarun } from '../../../assets'
 
-const ProdukItem = () => {
+const ProdukItem = ({onPress, title, price, dataImage, slug}) => {
+
+  let $dataImage = dataImage;
   return (
-    <TouchableOpacity style={styles.container}>
-      <Image source={ILMarun} style={styles.image} />
-      <Text style={styles.title}>Kaos Wanita Raglan Leng..</Text>
-      <Text style={styles.price}>Rp. 40.000</Text>
+    <TouchableOpacity style={styles.container} onPress={onPress} >
+      <Image source={{uri: $dataImage}} style={styles.image} />
+      <Text style={styles.title} numberOfLines={1}>{title}</Text>
+      <Text style={styles.price}>Rp. {price}</Text>
     </TouchableOpacity>
   )
 }
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     width: '45%' ,
-    height: 230,
+    height: 'auto',
     borderRadius: 10,
     marginBottom: 10,
     marginHorizontal: 10,
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
     shadowColor: colors.shadow
   },
   image:{
-    maxHeight: 170,
+    height: 180,
     width: '100%',
     borderRadius:10
   },

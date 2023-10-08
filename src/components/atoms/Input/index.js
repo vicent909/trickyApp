@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
 import { colors } from '../../../utils'
 
-const Input = ({title, type, placeholder}) => {
+const Input = ({title, type, placeholder, onChangeText, value, secureTextEntry}) => {
   return (
     <View>
         <Text style={styles.text}>{title}</Text>
-        <TextInput height={type} style={styles.input} placeholder={placeholder}/>
+        <TextInput secureTextEntry={secureTextEntry} height={type} style={styles.input} placeholder={placeholder} onChangeText={onChangeText} value={value}/>
     </View>
   )
 }

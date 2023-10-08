@@ -7,6 +7,10 @@ import IconHistoryActive from './ic-history-active.svg';
 import IconAkun from './ic-akun.svg';
 import IconAkunActive from './ic-akun-active.svg';
 import IconTrash from './ic-trash.svg';
+import IconEdit from './ic-edit.svg';
+import IconWa from './ic-wa.svg';
+import IconArrow from './ic-arrow.svg';
+import IconBack from './ic-back.svg';
 
 export {
     IconBeranda,
@@ -18,5 +22,9 @@ export {
     IconAkun,
     IconAkunActive,
     IconTrash,
-    
+    IconEdit,
+    IconWa,
+    IconArrow,
+    IconBack,
+
 }

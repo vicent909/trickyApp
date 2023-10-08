@@ -6,6 +6,10 @@ import Beranda from "./Beranda";
 import Keranjang from "./Keranjang";
 import History from "./History";
 import Akun from "./Akun";
+import ProdukDetail from "./ProdukDetail";
+import TransactionSuccess from "./TransactionSuccess";
+import Testing from "./Testing";
+import PraKeranjang from "./PraKeranjang";
 
 export{
     Splash,
@@ -16,4 +20,9 @@ export{
     Keranjang,
     History,
     Akun,
+    ProdukDetail,
+    TransactionSuccess,
+    Testing,
+    PraKeranjang,
+       
 }
