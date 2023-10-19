@@ -4,12 +4,17 @@ import { CartItem, CartPayment } from '../../components'
 import { colors } from '../../utils'
 import { AuthContext } from '../../context'
 import { useFocusEffect } from '@react-navigation/native'
+import { showMessage, hideMessage } from "react-native-flash-message";
 
-const Keranjang = () => {
+const Keranjang = ({navigation}) => {
 
   const {userInfo, setLoading} = useContext(AuthContext);
 
   const [cart, setCart] = useState([]);
+
+  const [price, setPrice] = useState(0);
+
+  const [uriWeb, setUriWeb] = useState("");
 
   const getCart = async() => {
     try{
@@ -24,6 +29,7 @@ const Keranjang = () => {
       let json = await result.json();
   
       setCart(json.data.carts);
+      setPrice(json.data.priceTot);
       setLoading(false)
     }catch(e){
       console.log('error', e);
@@ -38,17 +44,50 @@ const Keranjang = () => {
         'Accept': 'application/json',
         // 'Authorization': "Bearer "+userToken
       }
-    }).then(() => getCart());
+    }).then(() => {
+      getCart();
+      showMessage({
+        message: "Berhasil Hapus Barang",
+        type: 'success',
+        icon: 'success'
+      })
+    });
     setLoading(false);
   }
 
   // useEffect(() => {
   //   getCart();
   // }, [])
+
+  const checkout = async() => {
+    try{
+      setLoading(true);
+      let result = await fetch('https://www.tricky.masuk.id/api/transactionProcess/'+userInfo.id, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          // 'Authorization': "Bearer "+userToken
+        }
+      })
+
+      let json = await result.json();
+  
+      setUriWeb(json.data);
+      // console.log(json.data);
+  
+      setLoading(false);
+      navigation.navigate('TransactionProcess', {uri: json.data});
+    }catch(e){
+      console.log('error: ', e)
+      setLoading(false);
+    }
+  }
   
   useFocusEffect(
     React.useCallback(() => {
       console.log('onfocused')
+      // console.log(cart);
       getCart();
       return () => {
         console.log('not focused')
@@ -61,6 +100,8 @@ const Keranjang = () => {
       <View style={styles.container}>
           <Text style={styles.title}>Keranjang</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            cart.length > 0 ? 
             <SafeAreaView style={{paddingHorizontal: 10, paddingTop: -20}}>
                 <FlatList 
                   data={cart}
@@ -79,11 +120,24 @@ const Keranjang = () => {
                   scrollEnabled={false}
                 />
               </SafeAreaView>
+              :
+              <View style={styles.containerDataKosong}> 
+                <Text style={styles.dataKosong}>Keranjang Kosong.</Text>
+              </View>
+          }
+              {/* {
+                price.map((e,index) => {
+                  console.log(e,index);
+                  <Text key={e}>{index}</Text>
+                })
+              } */}
         </ScrollView>
+
         <View style={{padding: 20}}>
           <CartPayment
-            // itemPrice={20000}
-            // shipping={20000}
+            itemPrice={price}
+            shipping={cart.length > 0 ? 20000 : 0}
+            onPress={() => checkout()}
           />
         </View>
       </View>
@@ -112,5 +166,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     padding: 20,
     paddingBottom: -20
+  },
+  containerDataKosong:{
+    alignItems: 'center',
+    marginTop: 20
+  },
+  dataKosong:{
+    fontFamily: 'Nunito-SemiBold',
+    color: colors.smallTitle,
+    fontSize: 16
   }
 })

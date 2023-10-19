@@ -4,11 +4,19 @@ import { colors } from '../../../utils'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const ButtonSmall = ({widthBtn, type, title, onPress}) => {
-  return (
-    <TouchableOpacity style={styles.container({widthBtn, type})} onPress={onPress}>
-      <Text style={styles.titleButton}>{title}</Text>
-    </TouchableOpacity>
-  )
+  if(type === 'active'){
+    return (
+      <TouchableOpacity style={styles.container({widthBtn, type})} onPress={onPress}>
+        <Text style={styles.titleButton}>{title}</Text>
+      </TouchableOpacity>
+    )
+  }else{
+    return (
+      <View style={styles.container({widthBtn, type})} onPress={onPress}>
+        <Text style={styles.titleButton}>{title}</Text>
+      </View>
+    )
+  }
 }
 
 export default ButtonSmall

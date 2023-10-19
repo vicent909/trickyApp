@@ -1,59 +1,50 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Image, StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native'
+import React, { useState } from 'react'
 import { ILMarun } from '../../../assets'
 import Hr from '../Hr'
 import Button from '../Button'
 import { colors } from '../../../utils'
 import ButtonSmall from '../ButtonSmall'
+import HistorySmallItem from '../HistorySmallItem'
 
-const HistoryItem = () => {
+const HistoryItem = ({idTransaksi, time, statusPackage, item, statusPayment, onPress}) => {
+    const dataItem = item;
+
+    // console.log('data item in small:', dataItem)
   return (
     <View style={styles.container}>
-        <View style={styles.product}>
-            <View>
-                <Image source={ILMarun} style={styles.picture}/>
-            </View>
-            <View style={styles.rightContainer}>
-                <Text style={styles.productTitle}>Kaos Wanita Raglan Lengan 3/4</Text>
-                <Text style={styles.size}>Marun, M</Text>
-                <Text style={styles.size}>1 Pcs</Text>
-            </View>
-        </View>
-        <View style={styles.product}>
-            <View>
-                <Image source={ILMarun} style={styles.picture}/>
-            </View>
-            <View style={styles.rightContainer}>
-                <Text style={styles.productTitle}>Kaos Wanita Raglan Lengan 3/4</Text>
-                <Text style={styles.size}>Marun, M</Text>
-                <Text style={styles.size}>1 Pcs</Text>
-            </View>
-        </View>
-        <View style={styles.product}>
-            <View>
-                <Image source={ILMarun} style={styles.picture}/>
-            </View>
-            <View style={styles.rightContainer}>
-                <Text style={styles.productTitle}>Kaos Wanita Raglan Lengan 3/4</Text>
-                <Text style={styles.size}>Marun, M</Text>
-                <Text style={styles.size}>1 Pcs</Text>
-            </View>
-        </View>
+        {
+            dataItem.map((e, index) => {
+                // console.log('e:', e);
+                return(
+                    <HistorySmallItem 
+                        key={e.id} 
+                        title={e.product_title}
+                        size={e.sizes.size_name}
+                        color={e.colors.color_name}
+                        quantity={e.quantity}
+                        dataImage={'https://www.tricky.masuk.id/storage/'+e.product.galleries[0].image}
+                    />
+                )
+            })
+        }
       <Hr top={8} bot={8}/>
       <View style={styles.botContainer}>
         <View>
             <Text style={styles.priceLeft}>Id Transaksi</Text>
             <Text style={styles.priceLeft}>Waktu Transaksi</Text>
+            <Text style={styles.priceLeft}>Status Pembayaran</Text>
             <Text style={styles.priceLeft}>Status Pesanan</Text>
         </View>
         <View style={{marginBottom: 8,}}>
-            <Text style={styles.priceRight}>TRICKY-01</Text>
-            <Text style={styles.priceRight}>30-08-2023, 17:58</Text>
-            <Text style={styles.priceRight}>Terkirim</Text>
+            <Text style={styles.priceRight}>TRICKY-{idTransaksi}</Text>
+            <Text style={styles.priceRight}>{time}</Text>
+            <Text style={styles.priceRight}>{statusPayment}</Text>
+            <Text style={styles.priceRight}>{statusPackage}</Text>
         </View>
       </View>
       <View style={{alignItems: 'flex-end'}}>
-        <ButtonSmall widthBtn={180} title="Pesanan Diterima" type="active"/>
+        <ButtonSmall widthBtn={180} title="Pesanan Diterima" type={statusPackage === 'SENT' ? 'active' : ''} onPress={onPress}/>
       </View>
     </View>
   )
@@ -68,7 +59,8 @@ const styles = StyleSheet.create({
         padding: 8,
         elevation: 5,
         shadowColor: colors.shadow,
-        marginBottom: 8
+        marginBottom: 8,
+        marginHorizontal: 10
     },
     picture:{
         width: 50,

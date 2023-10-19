@@ -18,6 +18,7 @@ const Testing = ({navigation}) => {
         setUserInfo(userInfoParse);
 
         console.log('logged', token);
+        console.log('user Info testing:', info);
         // console.log('user token testing', userToken);
         // console.log('logged info', info);
         // console.log('user info tensting', userInfo);

@@ -4,6 +4,8 @@ import { ILLogoPanjang } from '../../assets'
 import { Button, Hr, Input, Link, Loading } from '../../components'
 import { AuthContext } from '../../context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { showMessage, hideMessage } from "react-native-flash-message";
+
 
 const Login = ({navigation}) => {
   const {loading, setLoading, userToken, setUserToken, setUserInfo} = useContext(AuthContext);
@@ -39,10 +41,22 @@ const Login = ({navigation}) => {
             AsyncStorage.setItem('userToken', res.data.token);
             AsyncStorage.setItem('userInfo', JSON.stringify(res.data.user));
             navigation.replace('MainApp')
+            showMessage({
+              message: "Login Berhasil",
+              type: 'success',
+              icon: 'success'
+            })
           });
         setLoading(false);
       }else{
-        result = result.json().then(res => console.log(res.message));
+        result = result.json().then(res => {
+          console.log(res.message);
+          showMessage({
+            message: res.message,
+            type: 'danger',
+            icon: 'danger'
+          })
+        });
         setLoading(false);
       }
   }

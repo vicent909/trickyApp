@@ -4,6 +4,8 @@ import { ILLogoPanjang } from '../../assets'
 import { Button, Gap, Hr, Input, Link } from '../../components'
 import { colors } from '../../utils'
 import { ScrollView } from 'react-native-gesture-handler'
+import { showMessage, hideMessage } from "react-native-flash-message";
+
 
 const Register = ({navigation}) => {
   const [name, setName] = useState('');
@@ -34,9 +36,21 @@ const Register = ({navigation}) => {
     // result.status = await result.json()
       if(result.status === 200){
         console.log('berhasil');
-        navigation.replace('Login')
+        navigation.replace('Login');
+        showMessage({
+          message: "Register Berhasil",
+          type: 'success',
+          icon: 'success'
+        })
       }else{
-        result = result.json().then(res => console.warn(res.message));
+        result = result.json().then(res => {
+          console.warn(res.message);
+          showMessage({
+            message: res.message,
+            type: 'danger',
+            icon: 'danger'
+          })
+        });
       }
   }
 
@@ -50,7 +64,7 @@ const Register = ({navigation}) => {
         <Input title="No.telp" value={phone} onChangeText={(text) => setPhone(text)}/>
         <Input title="Alamat Lengkap (RT & RW, Kelurahan, Kecamatan, dan Kota)" value={address} onChangeText={(text) => setAddrress(text)}/>
         <Input title="Kode Pos" value={postalCode} onChangeText={(text) => setPostalCode(text)}/>
-        <Input title="Password" value={password} onChangeText={(text) => setPassword(text)}/>
+        <Input title="Password" value={password} onChangeText={(text) => setPassword(text)} secureTextEntry={true}/>
         <Hr top={20} bot={20}/>
         <Button title="Register" onPress={register}/>
         <View style={{alignItems: 'center'}}>

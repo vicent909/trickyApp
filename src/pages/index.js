@@ -10,6 +10,7 @@ import ProdukDetail from "./ProdukDetail";
 import TransactionSuccess from "./TransactionSuccess";
 import Testing from "./Testing";
 import PraKeranjang from "./PraKeranjang";
+import EditProfile from "./EditProfile";
 
 export{
     Splash,
@@ -24,5 +25,6 @@ export{
     TransactionSuccess,
     Testing,
     PraKeranjang,
-       
+    EditProfile,
+    
 }

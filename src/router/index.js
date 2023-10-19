@@ -1,8 +1,9 @@
 import React from "react";
 import {createStackNavigator} from '@react-navigation/stack';
-import { Akun, Beranda, GetStarted, History, Keranjang, Login, PraKeranjang, ProdukDetail, Register, Splash, Testing, TransactionSuccess } from "../pages";
+import { Akun, Beranda, EditProfile, GetStarted, History, Keranjang, Login, PraKeranjang, ProdukDetail, Register, Splash, Testing, TransactionSuccess } from "../pages";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomNavigator } from "../components";
+import TransactionProcess from "../pages/TransactionProcess";
 
 // const { createStackNavigator } = require("@react-navigation/stack");
 
@@ -32,6 +33,8 @@ const Router = () =>  {
             <Stack.Screen name="TransactionSuccess" component={TransactionSuccess} options={{headerShown: false}}/>
             <Stack.Screen name="Testing" component={Testing} options={{headerShown: false}}/>
             <Stack.Screen name="PraKeranjang" component={PraKeranjang} options={{headerShown: false}}/>
+            <Stack.Screen name="EditProfile" component={EditProfile} options={{headerShown: false}}/>
+            <Stack.Screen name="TransactionProcess" component={TransactionProcess} options={{headerShown: false}}/>
         </Stack.Navigator>
     )
 }

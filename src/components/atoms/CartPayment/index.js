@@ -4,7 +4,7 @@ import Hr from '../Hr'
 import Button from '../Button'
 import { colors } from '../../../utils'
 
-const CartPayment = ({itemPrice, shipping, grandTotal}) => {
+const CartPayment = ({itemPrice, shipping, grandTotal, onPress}) => {
   $total = itemPrice+shipping; 
   return (
     <View style={styles.container}>
@@ -25,7 +25,7 @@ const CartPayment = ({itemPrice, shipping, grandTotal}) => {
         <Text style={styles.finalPrice}>Total Dibayarkan</Text>
         <Text style={styles.finalPrice}>Rp. {$total}</Text>
       </View>
-      <Button title="Checkout"/>
+      <Button title="Checkout" onPress={onPress}/>
     </View>
   )
 }

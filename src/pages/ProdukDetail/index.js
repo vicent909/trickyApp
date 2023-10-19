@@ -4,6 +4,7 @@ import { ILMarun, IconBack } from '../../assets';
 import { colors } from '../../utils';
 import { DetailProdukItem, Hr, RadioButton } from '../../components';
 import { AuthContext } from '../../context';
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 
 
@@ -21,7 +22,6 @@ const ProdukDetail = ({navigation, route}) => {
     const [jumlah, setJumlah] = useState(1)
     const trueSize = size+1;
     const trueColor = colorItem+1;
-    
     
     // useEffect(() => {
     //     const getData = async() => {
@@ -43,6 +43,7 @@ const ProdukDetail = ({navigation, route}) => {
     const img = galleries.map(function(a){return 'https://www.tricky.masuk.id/storage/'+a.image.toString()});
     const images = img;
     const [imgActive, setimgActive] = useState(0);
+
 
     onchange = (nativeEvent) => {
         if(nativeEvent){
@@ -66,12 +67,18 @@ const ProdukDetail = ({navigation, route}) => {
                 "products_id": id,
                 "color_id": trueColor,
                 "size_id": trueSize,
-                "quantity": jumlah
+                "quantity": jumlah,
+                "total_price": jumlah*price
             })
         })
 
         if(result.status === 200){
             console.log('berhasil');
+            showMessage({
+                message: "Berhasil Tambah ke Keranjang",
+                type: "success",
+                icon: 'success'
+              });
             navigation.navigate('Keranjang')
           }else{
             result = result.json().then(res => console.warn(res.message));

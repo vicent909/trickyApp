@@ -13,6 +13,8 @@ import ButtonSmall from "./ButtonSmall";
 import AccountItem from "./AccountItem";
 import RadioButton from "./RadioButton";
 import DetailProdukItem from "./DetailProdukItem";
+import HistorySmallItem from "./HistorySmallItem";
+import WebViewComponent from "./WebViewComponent";
 
 export {
     Button,
@@ -30,5 +32,6 @@ export {
     AccountItem,
     RadioButton,
     DetailProdukItem,
-    
+    HistorySmallItem,
+    WebViewComponent
 }

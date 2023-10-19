@@ -6,9 +6,11 @@ import { IconArrow, IconWa } from '../../assets'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AuthContext } from '../../context'
 import AsyncStorage from '@react-native-async-storage/async-storage/';
+import { showMessage, hideMessage } from "react-native-flash-message";
+
 
 const Akun = ({navigation}) => {
-  const {loading, setLoading, userToken, setUserToken, setUserInfo} = useContext(AuthContext);
+  const {loading, setLoading, userToken, setUserToken, setUserInfo, userInfo} = useContext(AuthContext);
 
   const logout = async() => {
     setLoading(true);
@@ -28,13 +30,19 @@ const Akun = ({navigation}) => {
       AsyncStorage.removeItem('userToken');
       AsyncStorage.removeItem('userInfo');
       setLoading(false);
-      navigation.replace('GetStarted')
+      navigation.replace('GetStarted');
+      showMessage({
+        message: 'Berhasil Logout',
+        type: 'success'
+      })
     }else{
       console.log('gagal delete token');
-      setLoading(false)
+      setLoading(false);
+      showMessage({
+        message: 'Gagal Logout',
+        type: 'danger'
+      })
     }
-    // AsyncStorage.removeItem('userToken');
-    // AsyncStorage.removeItem('userInfo');
   }
 
   return (
@@ -42,7 +50,14 @@ const Akun = ({navigation}) => {
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>Akun</Text>
-          <AccountItem/>
+          <AccountItem
+            name={userInfo.name}
+            email={userInfo.email}
+            phone={userInfo.phone}
+            address={userInfo.address}
+            postalNumber={userInfo.postal_code}
+            onPress={() => navigation.navigate('EditProfile')}
+          />
           <Text style={styles.helpText}>Butuh Bantuan? hubungi kami</Text>
           <TouchableOpacity style={styles.helpContainer}>
             <IconWa/>
@@ -53,6 +68,7 @@ const Akun = ({navigation}) => {
         <View>
           <TouchableOpacity style={styles.helpContainer} onPress={() => {logout()}}>
             <Text style={styles.logout}>Logout</Text>
+            <IconArrow style={{color: colors.text.secondary}}/>
           </TouchableOpacity>
         </View>
       </View>

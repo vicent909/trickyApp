@@ -5,12 +5,12 @@ import { colors } from '../../../utils'
 import Hr from '../Hr'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const AccountItem = () => {
+const AccountItem = ({name, email, phone, address, postalNumber, onPress}) => {
   return (
     <View style={styles.container}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <Text style={styles.title}>Profile</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPress}>
                 <IconEdit/>
             </TouchableOpacity>
         </View>
@@ -20,7 +20,7 @@ const AccountItem = () => {
                 Nama
             </Text>
             <Text style={styles.bottom}>
-                Vincent
+                {name}
             </Text>
         </View>
         <View>
@@ -28,7 +28,7 @@ const AccountItem = () => {
                 Email
             </Text>
             <Text style={styles.bottom}>
-                vincentcan909@gmail.com
+                {email}
             </Text>
         </View>
         <View>
@@ -36,7 +36,7 @@ const AccountItem = () => {
                 No. Telp
             </Text>
             <Text style={styles.bottom}>
-                082298873297
+                {phone}
             </Text>
         </View>
         <View>
@@ -44,7 +44,7 @@ const AccountItem = () => {
                 Alamat
             </Text>
             <Text style={styles.bottom}>
-                Jl. Tanjung Duren Barat 2 No. 1, Jakarta Barat, DKI Jakarta.
+                {address}
             </Text>
         </View>
         <View>
@@ -52,7 +52,7 @@ const AccountItem = () => {
                 Kode Pos
             </Text>
             <Text style={styles.bottom}>
-                11460
+                {postalNumber}
             </Text>
         </View>
     </View>

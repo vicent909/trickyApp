@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import Router from './router'
 import { AuthContext, AuthProvider } from './context'
 import { Loading } from './components'
+import FlashMessage from "react-native-flash-message";
 
 const MainApp = () => {
   const {loading} = useContext(AuthContext);
@@ -18,9 +19,12 @@ const MainApp = () => {
 
 const App = () => {
   return (
-    <AuthProvider>
-      <MainApp/>
-    </AuthProvider>
+    <>
+      <AuthProvider>
+        <MainApp/>
+      </AuthProvider>
+      <FlashMessage position="top" />
+    </>
   )
 }
 
